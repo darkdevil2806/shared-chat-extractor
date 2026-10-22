@@ -1,0 +1,28 @@
+{
+  "platform": "ChatGPT",
+  "title": "How to reverse a linked list in Python",
+  "model": "gpt-4o",
+  "created_at": 1729612345.678,
+  "messages": [
+    {
+      "role": "user",
+      "text": "How do I reverse a singly linked list in Python?",
+      "model": "gpt-4o"
+    },
+    {
+      "role": "assistant",
+      "text": "Here's a simple iterative approach to reverse a singly linked list:\n\n```python\nclass ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef reverse_linked_list(head: ListNode) -> ListNode:\n    prev = None\n    current = head\n    while current:\n        next_node = current.next\n        current.next = prev\n        prev = current\n        current = next_node\n    return prev\n```\n\n**How it works:**\n1. We maintain three pointers: `prev`, `current`, and `next_node`.\n2. At each step, we reverse the `next` pointer of the current node.\n3. Then advance all three pointers forward.\n4. When `current` becomes `None`, `prev` is the new head.\n\nTime complexity: O(n), Space complexity: O(1).",
+      "model": "gpt-4o"
+    },
+    {
+      "role": "user",
+      "text": "Can you also show a recursive version?",
+      "model": "gpt-4o"
+    },
+    {
+      "role": "assistant",
+      "text": "Sure! Here's the recursive approach:\n\n```python\ndef reverse_linked_list_recursive(head: ListNode) -> ListNode:\n    if not head or not head.next:\n        return head\n    new_head = reverse_linked_list_recursive(head.next)\n    head.next.next = head\n    head.next = None\n    return new_head\n```\n\nThe recursive version uses the call stack to reach the end of the list, then reverses pointers on the way back. Time complexity is still O(n), but space complexity is O(n) due to the recursion stack.",
+      "model": "gpt-4o"
+    }
+  ]
+}

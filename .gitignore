@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Extracted outputs (user-generated, should not be committed)
+extracted_code/
+*.html
+!examples/*.html
+
+# Sensitive / Personal
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.credentials
+*.secret
+google-services.json
+GoogleService-Info.plist
+serviceAccountKey*.json
+**/secrets/
+**/credentials/
+
+# OS files
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini

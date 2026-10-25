@@ -1,5 +1,6 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/python-3.7%2B-blue?logo=python&logoColor=white" alt="Python 3.7+">
+  <img src="https://img.shields.io/badge/python-3.8%2B-blue?logo=python&logoColor=white" alt="Python 3.8+">
+  <a href="https://github.com/darkdevil2806/shared-chat-extractor/actions/workflows/ci.yml"><img src="https://github.com/darkdevil2806/shared-chat-extractor/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/dependencies-zero-brightgreen" alt="Zero Dependencies">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License">
   <img src="https://img.shields.io/badge/platforms-ChatGPT%20%7C%20Claude%20%7C%20Gemini%20%7C%20Perplexity-orange" alt="Supported Platforms">
@@ -30,14 +31,25 @@ Converts AI conversation links into clean **Markdown**, structured **JSON**, or 
 
 ## 📦 Installation
 
-No package installations or virtual environments required:
+### Option 1: Direct Global CLI Install (Recommended)
+Install directly from GitHub via `pip` or `pipx`:
+
+```bash
+pip install git+https://github.com/darkdevil2806/shared-chat-extractor.git
+# Or with pipx:
+pipx install git+https://github.com/darkdevil2806/shared-chat-extractor.git
+```
+This adds the `shared-chat-extractor` command globally to your terminal!
+
+### Option 2: Clone & Run (Zero Dependencies)
+You can also run directly from source without installing anything:
 
 ```bash
 git clone https://github.com/darkdevil2806/shared-chat-extractor.git
 cd shared-chat-extractor
 ```
 
-> **Requirements:** Python 3.7 or higher.
+> **Requirements:** Python 3.8 or higher (uses only standard library modules).
 
 ---
 

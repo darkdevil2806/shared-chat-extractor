@@ -410,7 +410,8 @@ def _strip_html(html_fragment: str) -> str:
 
 def parse_gemini(html: str) -> Optional[Dict[str, Any]]:
     """Parse Gemini (Bard) share page."""
-    if 'gemini.google.com' not in html and 'share.gemini.google' not in html and 'BardChatUi' not in html:
+    html_lower = html.lower()
+    if 'gemini.google' not in html_lower and 'share.gemini' not in html_lower and 'bardchatui' not in html_lower and 'gemini' not in html_lower:
         return None
 
     title = "Shared Gemini Conversation"
@@ -451,7 +452,8 @@ def parse_gemini(html: str) -> Optional[Dict[str, Any]]:
 
 def parse_perplexity(html: str) -> Optional[Dict[str, Any]]:
     """Parse Perplexity.ai search / share page."""
-    if 'perplexity.ai' not in html and 'pplx' not in html:
+    html_lower = html.lower()
+    if 'perplexity' not in html_lower and 'pplx' not in html_lower:
         return None
 
     title = "Shared Perplexity Conversation"

@@ -33,7 +33,7 @@ Converts AI conversation links into clean **Markdown**, structured **JSON**, or 
 No package installations or virtual environments required:
 
 ```bash
-git clone https://github.com/<your-username>/shared-chat-extractor.git
+git clone https://github.com/darkdevil2806/shared-chat-extractor.git
 cd shared-chat-extractor
 ```
 

@@ -12,6 +12,7 @@ import re
 import json
 import ssl
 import argparse
+from html.parser import HTMLParser
 from typing import Dict, Any, List, Optional
 import urllib.request
 import urllib.error
@@ -372,17 +373,40 @@ def _parse_claude_dom(html: str, default_title: str) -> tuple:
     return messages, title
 
 
+class _HTMLTextExtractor(HTMLParser):
+    """Cleanly extract visible text from HTML without vulnerable regex tag stripping."""
+    def __init__(self):
+        super().__init__()
+        self.reset()
+        self.fed = []
+        self._skip = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ('script', 'style', 'noscript'):
+            self._skip = True
+        elif tag in ('br', 'p', 'div', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'tr'):
+            self.fed.append('\n')
+
+    def handle_endtag(self, tag):
+        if tag in ('script', 'style', 'noscript'):
+            self._skip = False
+        elif tag in ('p', 'div', 'li', 'tr'):
+            self.fed.append('\n')
+
+    def handle_data(self, data):
+        if not self._skip:
+            self.fed.append(data)
+
+    def get_text(self) -> str:
+        text = ''.join(self.fed)
+        return re.sub(r'\n{3,}', '\n\n', text).strip()
+
+
 def _strip_html(html_fragment: str) -> str:
-    """Remove HTML tags and normalize whitespace from an HTML fragment."""
-    text = re.sub(r'<script[\s\S]*?</script>', '', html_fragment)
-    text = re.sub(r'<style[\s\S]*?</style>', '', text)
-    text = re.sub(r'<br\s*/?>', '\n', text)
-    text = re.sub(r'</p>', '\n', text)
-    text = re.sub(r'</div>', '\n', text)
-    text = re.sub(r'</li>', '\n', text)
-    text = re.sub(r'<[^>]+>', '', text)
-    text = re.sub(r'\n{3,}', '\n\n', text)
-    return text.strip()
+    """Safely remove HTML tags and normalize whitespace using HTMLParser."""
+    parser = _HTMLTextExtractor()
+    parser.feed(html_fragment)
+    return parser.get_text()
 
 def parse_gemini(html: str) -> Optional[Dict[str, Any]]:
     """Parse Gemini (Bard) share page."""
@@ -471,9 +495,7 @@ def parse_generic(html: str) -> Dict[str, Any]:
     title_m = re.search(r'<title>(.*?)</title>', html, re.IGNORECASE)
     title = title_m.group(1).strip() if title_m else "Shared Conversation"
 
-    clean_text = re.sub(r'<script[\s\S]*?</script>', '', html)
-    clean_text = re.sub(r'<style[\s\S]*?</style>', '', clean_text)
-    clean_text = re.sub(r'<[^>]+>', ' ', clean_text)
+    clean_text = _strip_html(html)
     clean_text = re.sub(r'\s+', ' ', clean_text).strip()
 
     return {

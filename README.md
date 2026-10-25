@@ -193,21 +193,46 @@ Once installed, the AI assistant will automatically use the skill whenever you p
 
 ```
 shared-chat-extractor/
+├── pyproject.toml        # PEP 621 packaging for pip / pipx installation
 ├── SKILL.md              # Antigravity skill definition
 ├── README.md             # Complete documentation and tutorials
+├── SECURITY.md           # Security disclosure policy
 ├── LICENSE               # MIT License
 ├── CONTRIBUTING.md       # Contribution and development guidelines
 ├── .gitignore            # Git exclusion rules
 ├── scripts/
 │   └── extract_chat.py   # Complete standalone extractor script
+├── tests/
+│   └── test_extractor.py # Automated unit and regression test suite
 ├── references/
 │   └── providers.md      # Detailed payload and architecture notes
 ├── examples/
 │   ├── sample_output.md  # Example Markdown output
 │   └── sample_output.json# Example structured JSON output
 └── .github/
-    └── ISSUE_TEMPLATE.md # Bug report and feature request template
+    ├── workflows/
+    │   └── ci.yml        # Multi-Python GitHub Actions CI pipeline
+    ├── ISSUE_TEMPLATE.md # Bug report and feature request template
+    └── PULL_REQUEST_TEMPLATE.md # Contributor PR checklist
 ```
+
+---
+
+## 📝 Changelog
+
+### v1.5.0 (2026-10-26)
+* 📦 **Direct `pip` / `pipx` Packaging:** Added `pyproject.toml` exposing a global `shared-chat-extractor` command.
+* 🤖 **Multi-Version CI Pipeline:** Added GitHub Actions matrix testing across Python `3.8`, `3.9`, `3.10`, `3.11`, `3.12`, and `3.13`.
+* 🛡️ **CodeQL & HTMLParser Hardening:** Replaced regex-based tag stripping with standard library `html.parser.HTMLParser` to eliminate CodeQL alerts.
+* 🧪 **Automated Test Suite:** Added `tests/test_extractor.py` covering edge cases, platform parsers, and Markdown formatting.
+* 💾 **Raw HTML Dump Option (`--save-html` / `-s`):** Allows automatic saving/caching of fetched `.html` files from URLs.
+* 🌐 **Provider Expansion:** Added native parsers for Google Gemini and Perplexity search shares.
+* 📋 **Community & Security Standards:** Added `SECURITY.md`, `.github/PULL_REQUEST_TEMPLATE.md`, and `.github/ISSUE_TEMPLATE.md`.
+
+### v1.0.0 (2026-10-22)
+* Initial release with support for ChatGPT (React Router devalue streams + `__NEXT_DATA__`) and Claude.
+* Code extraction into discrete source files (`--extract-code`).
+* Google Antigravity (AGY) skill integration.
 
 ---
 

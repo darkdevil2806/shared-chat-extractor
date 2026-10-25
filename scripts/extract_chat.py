@@ -17,6 +17,8 @@ from typing import Dict, Any, List, Optional
 import urllib.request
 import urllib.error
 
+__version__ = "1.5.0"
+
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
 
 def fetch_html(url: str) -> str:
@@ -552,6 +554,7 @@ def format_as_markdown(data: Dict[str, Any]) -> str:
 
 def main():
     parser = argparse.ArgumentParser(description="Extract structured conversation data from shared chat links or HTML files.")
+    parser.add_argument("--version", "-v", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument("source", help="URL or path to local HTML/JSON file")
     parser.add_argument("--format", choices=["json", "md"], default="md", help="Output format (default: md)")
     parser.add_argument("--output", "-o", help="Output file path (default: stdout)")

@@ -6,6 +6,7 @@ Only the latest release on the `main` branch receives security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
+| 1.5.x   | :white_check_mark: |
 | 1.0.x   | :white_check_mark: |
 | < 1.0   | :x:                |
 
